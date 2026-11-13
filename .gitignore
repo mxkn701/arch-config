@@ -1,0 +1,11 @@
+REVIEW.txt
+*.pacnew
+*.pacsave
+
+# veřejné repo: nic tajného, ale zbytečně prozrazuje detaily o stroji
+etc/fstab
+etc/hostname
+etc/ufw/user.rules
+etc/ufw/user6.rules
+.services-exclude
+etc/pacman.d/mirrorlist

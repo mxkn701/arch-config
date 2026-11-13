@@ -1,0 +1,20 @@
+[Unit]
+Description=Release the fingerprint reader before sleep (Synaptics 06cb:00bd must not sleep mid-verify)
+Before=sleep.target
+StopWhenUnneeded=yes
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+TimeoutStartSec=15
+# značka pro ~/.local/bin/lock-fingerprint: během usínání čtečku nepoužívat
+ExecStart=/usr/bin/touch /run/fprint-sleeping
+# zrušit rozběhnuté ověřování (fprintd pak operaci ve čtečce korektně ukončí)
+ExecStart=-/usr/bin/pkill -x fprintd-verify
+ExecStart=/usr/bin/sleep 1
+ExecStart=-/usr/bin/systemctl stop fprintd.service
+# po probuzení (sleep.target skončí) značku smazat
+ExecStop=/usr/bin/rm -f /run/fprint-sleeping
+
+[Install]
+WantedBy=sleep.target

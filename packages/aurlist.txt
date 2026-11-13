@@ -1,0 +1,12 @@
+arduino-ide-bin
+audacity4-bin
+brave-bin
+claude-desktop
+geteduroam-gui-bin
+hyprmod
+localsend-bin
+minecraft-launcher
+packettracer
+pamtester
+visual-studio-code-bin
+yay-bin

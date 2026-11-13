@@ -1,0 +1,10 @@
+[Unit]
+Description=Restart fprintd after resume (Synaptics 06cb:00bd loses its USB handle across suspend)
+After=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/systemctl --no-block try-restart fprintd.service
+
+[Install]
+WantedBy=suspend.target hibernate.target hybrid-sleep.target suspend-then-hibernate.target
