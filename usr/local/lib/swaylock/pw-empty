@@ -1,0 +1,5 @@
+#!/bin/sh
+# Volá ho pam_exec z /etc/pam.d/swaylock, na stdin dostane zadané heslo.
+# Exit 0 = heslo je prázdné (jen Enter) -> PAM zapne čtečku otisků.
+# Exit 1 = něco je napsané              -> PAM čtečku přeskočí a ověří heslo.
+[ -z "$(tr -d '\000')" ]

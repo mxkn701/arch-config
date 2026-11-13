@@ -1,0 +1,18 @@
+#!/bin/sh
+# Zamkne obrazovku swaylockem, pozadí = aktuální tapeta z noctalie.
+# Volá ho SUPER+L i hypridle (lock_cmd). Když už zamčeno je, nic neudělá.
+# Otisk: na zamčené obrazovce Enter a přiložit prst (čtečka běží jen na vyžádání,
+# dlouhé nepřetržité čekání na prst tahle čtečka Synaptics 06cb:00bd nesnáší).
+pidof swaylock >/dev/null && exit 0
+
+wallpaper=$(python3 -I - "$HOME/.local/state/noctalia/settings.toml" 2>/dev/null <<'EOF'
+import sys, tomllib
+with open(sys.argv[1], "rb") as f:
+    print(tomllib.load(f)["wallpaper"]["last"]["path"])
+EOF
+)
+
+if [ -n "$wallpaper" ] && [ -f "$wallpaper" ]; then
+    exec swaylock -f -i "$wallpaper"
+fi
+exec swaylock -f
